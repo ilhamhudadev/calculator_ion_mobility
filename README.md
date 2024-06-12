@@ -3,7 +3,7 @@
 
 # Let's Calc | Minimalist Calculator
 
-![Alt text](https://www.zdnet.com/a/img/resize/e9794c8e2b8a9a9173f0b1f496406d551f6e80b5/2023/08/22/8c939452-01fe-4087-a469-c902c577f0a1/asus-zenfone-10-in-hand.jpg?auto=webp&fit=crop&height=900&width=1200)
+![Alt text](https://github.com/ilhamhudadev/calculator_ion_mobility/blob/main/assets/images/cover.jpg?raw=true)
 
 
 ## Table of Contents
