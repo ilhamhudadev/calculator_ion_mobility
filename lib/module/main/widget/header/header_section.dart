@@ -11,9 +11,9 @@ class HeaderSection extends StatelessWidget {
     DateTime now = DateTime.now();
     int hour = now.hour;
     var value = "";
-    if (hour >= 4 && hour < 10) {
+    if (hour >= 4 && hour < 12) {
       value = 'good morning';
-    } else if (hour >= 10 && hour < 17) {
+    } else if (hour >= 12 && hour < 17) {
       value = 'good afternoon';
     } else if (hour >= 17 && hour < 21) {
       value = 'good evening';
