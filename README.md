@@ -3,6 +3,9 @@
 
 # Let's Calc | Minimalist Calculator
 
+![Alt text](https://www.zdnet.com/a/img/resize/e9794c8e2b8a9a9173f0b1f496406d551f6e80b5/2023/08/22/8c939452-01fe-4087-a469-c902c577f0a1/asus-zenfone-10-in-hand.jpg?auto=webp&fit=crop&height=900&width=1200)
+
+
 ## Table of Contents
 
 - [Project Description](#project-description)
@@ -77,10 +80,10 @@ flutter test
 
 2. **Unit Tests**
 
-Unit tests for the BLoC logic can be found in `test/main_bloc_test.dart`.
+Unit tests for the BLoC logic can be found in `module/main/test/unit_test.dart`.
 
 3. **Widget Tests**
 
-Widget tests for the UI can be found in `test/main_page_test.dart`.
+Widget tests for the UI can be found in `module/main/test/widget_test.dart`.
 
 
