@@ -1,67 +1,71 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:calculator_ion_mobility/module/main/bloc/main_bloc.dart';
+import 'package:calculator_ion_mobility/module/main/pages/main_page.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:bloc_test/bloc_test.dart';
 
 void main() {
-  group('MainBloc', () {
-    late MainBloc mainBloc;
-
-    setUp(() {
-      mainBloc = MainBloc();
-    });
-
-    tearDown(() {
-      mainBloc.close();
-    });
-
-    test('initial state is MainInitial', () {
-      expect(mainBloc.state, MainInitial());
-    });
-
-    blocTest<MainBloc, MainState>(
-      'emits [MainState] with updated input when button is pressed',
-      build: () => mainBloc,
-      act: (bloc) => bloc.add(const MainButtonPressed('1')),
-      expect: () => [const MainState(input: '1', result: '0', history: [])],
+  testWidgets('displays initial input and result', (WidgetTester tester) async {
+    // Pump the widget tree
+    await tester.pumpWidget(
+      BlocProvider(
+        create: (context) => MainBloc(), // Create a MainBloc instance
+        child: const MaterialApp(home: MainPage()), // Build the MainPage widget
+      ),
     );
 
-    blocTest<MainBloc, MainState>(
-      'emits [MainState] with result when = is pressed',
-      build: () => mainBloc,
-      act: (bloc) {
-        bloc.add(const MainButtonPressed('1'));
-        bloc.add(const MainButtonPressed('+'));
-        bloc.add(const MainButtonPressed('1'));
-        bloc.add(const MainButtonPressed('='));
-      },
-      expect: () => [
-        const MainState(input: '1', result: '0', history: []),
-        const MainState(input: '1+', result: '0', history: []),
-        const MainState(input: '1+1', result: '0', history: []),
-        const MainState(input: '1+1', result: '2', history: ['1+1 = 2']),
-      ],
+    // Verify if '0' is displayed twice (for initial input and result)
+    expect(find.text('0'), findsNWidgets(2));
+  });
+
+  // Test to check if input and result are updated correctly when buttons are pressed
+  testWidgets('updates input and result when buttons are pressed',
+      (WidgetTester tester) async {
+    // Pump the widget tree
+    await tester.pumpWidget(
+      BlocProvider(
+        create: (context) => MainBloc(), // Create a MainBloc instance
+        child: const MaterialApp(home: MainPage()), // Build the MainPage widget
+      ),
     );
 
-    blocTest<MainBloc, MainState>(
-      'emits [MainState] with input sanitized',
-      build: () => mainBloc,
-      act: (bloc) {
-        bloc.add(const MainButtonPressed('0'));
-        bloc.add(const MainButtonPressed('0'));
-        bloc.add(const MainButtonPressed('1'));
-      },
-      expect: () => [
-        const MainState(input: '0', result: '0', history: []),
-        const MainState(input: '0', result: '0', history: []),
-        const MainState(input: '1', result: '0', history: []),
-      ],
+    // Simulate button presses
+    await tester.tap(find.text('1'));
+    await tester.tap(find.text('+'));
+    await tester.tap(find.text('1'));
+    await tester.tap(find.text('='));
+    await tester.pump();
+
+    // Verify if input expression '1+1' and result '2' are displayed
+    expect(find.text('1+1'), findsOneWidget);
+    expect(find.text('2'), findsOneWidget);
+  });
+
+  // Test to check if history is displayed correctly
+  testWidgets('displays history correctly', (WidgetTester tester) async {
+    // Pump the widget tree
+    await tester.pumpWidget(
+      BlocProvider(
+        create: (context) => MainBloc(), // Create a MainBloc instance
+        child: const MaterialApp(home: MainPage()), // Build the MainPage widget
+      ),
     );
+
+    // Simulate button presses for two calculations
+    await tester.tap(find.text('2'));
+    await tester.tap(find.text('+'));
+    await tester.tap(find.text('3'));
+    await tester.tap(find.text('='));
+    await tester.pump();
+
+    await tester.tap(find.text('4'));
+    await tester.tap(find.text('*'));
+    await tester.tap(find.text('2'));
+    await tester.tap(find.text('='));
+    await tester.pump();
+
+    // Verify if history entries are displayed correctly
+    expect(find.text('2+3 = 5'), findsOneWidget);
+    expect(find.text('4*2 = 8'), findsOneWidget);
   });
 }
