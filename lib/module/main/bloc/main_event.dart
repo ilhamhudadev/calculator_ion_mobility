@@ -1,7 +1,5 @@
 part of 'main_bloc.dart';
 
-// class GetGreetings extends MainEvent {}
-
 abstract class MainEvent {
   const MainEvent();
 

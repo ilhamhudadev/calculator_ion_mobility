@@ -1,4 +1,6 @@
 
+
+
 # Let's Calc | Minimalist Calculator
 
 ## Table of Contents
@@ -9,7 +11,7 @@
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
 - [Usage](#usage)
-
+- [Running Tests](#running-tests)
 
 ## Project Description
 
@@ -63,5 +65,22 @@ Let's Calc app is straightforward to use:
 - **=**: Evaluates the expression and displays the result.
 - **History**: Displays the list of previous calculations.
 
+## Running Tests
+
+This project includes both unit tests and widget tests to ensure the correctness of the application logic and UI.
+
+1. **Run all tests**
+
+```bash
+flutter test
+```
+
+2. **Unit Tests**
+
+Unit tests for the BLoC logic can be found in `test/main_bloc_test.dart`.
+
+3. **Widget Tests**
+
+Widget tests for the UI can be found in `test/main_page_test.dart`.
 
 

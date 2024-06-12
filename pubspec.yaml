@@ -1,5 +1,5 @@
 name: calculator_ion_mobility
-description: A new Flutter project.
+description: Let's Calc | Minimalist Calculator by Ilham Huda
 
 publish_to: 'none'
 
@@ -13,10 +13,7 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.2
   flutter_bloc: ^8.1.5
-  equatable: ^2.0.5
   bloc: ^8.1.4
-  expressions: ^0.2.5+1
-  speech_to_text: ^6.6.2
   bloc_test: ^9.1.7
 
 dev_dependencies:

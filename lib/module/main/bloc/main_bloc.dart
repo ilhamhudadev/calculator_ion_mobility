@@ -5,13 +5,16 @@ part 'main_state.dart';
 
 class MainBloc extends Bloc<MainEvent, MainState> {
   MainBloc() : super(MainInitial()) {
-    on<MainButtonPressed>(onButtonPressed);
+    on<MainButtonPressed>(onButtonPressed); // Define event handlers
   }
 
+  // [MDIR:onButtonPressed] Handle button pressed event
   void onButtonPressed(MainButtonPressed event, Emitter<MainState> emit) {
+    // Handle different button actions
     if (event.buttonText == "CLEAR") {
       emit(MainInitial());
     } else if (event.buttonText == "BACK") {
+      // Handle back button press
       if (state.input.isNotEmpty) {
         emit(MainState(
             input: state.input.substring(0, state.input.length - 1),
@@ -19,6 +22,7 @@ class MainBloc extends Bloc<MainEvent, MainState> {
             history: state.history));
       }
     } else if (event.buttonText == "=") {
+      // Handle equal button press
       if (state.input.isNotEmpty) {
         try {
           final exp = state.input.replaceAll('x', '*');
@@ -30,6 +34,7 @@ class MainBloc extends Bloc<MainEvent, MainState> {
               history: List.from(state.history)
                 ..add("${state.input} = $formattedResult")));
         } catch (e) {
+          // Handle exception
           emit(MainState(
               input: "Please type the correct calculation",
               result: "0",
@@ -37,6 +42,7 @@ class MainBloc extends Bloc<MainEvent, MainState> {
         }
       }
     } else {
+      // Handle other button presses
       emit(MainState(
           input: sanitizeInput(state.input + event.buttonText),
           result: state.result,
@@ -44,21 +50,22 @@ class MainBloc extends Bloc<MainEvent, MainState> {
     }
   }
 
+  // [MDIR:sanitizeInput] Sanitize input by removing leading zeros
   String sanitizeInput(String input) {
-    // Remove leading zeros from the input
     input = input.replaceAll(RegExp(r'^0+'), '');
     if (input.isEmpty) return '0';
     return input;
   }
 
+  // [MDIR:evaluateExpression] Evaluate arithmetic expression
   double evaluateExpression(String expression) {
     List<String> tokens = tokenize(expression);
     List<String> rpn = toRPN(tokens);
     return evaluateRPN(rpn);
   }
 
+  // [MDIR:formatResult] Format result with at most 5 decimal places
   String formatResult(double result) {
-    // Format the result to have at most 5 decimal places and remove trailing zeros
     String resultString = result.toStringAsFixed(5);
     resultString = resultString.replaceAll(RegExp(r'0+$'), '');
     if (resultString.endsWith('.')) {
@@ -67,6 +74,7 @@ class MainBloc extends Bloc<MainEvent, MainState> {
     return resultString;
   }
 
+  // [MDIR:tokenize] Tokenize arithmetic expression
   List<String> tokenize(String expression) {
     List<String> tokens = [];
     String number = '';
@@ -92,6 +100,7 @@ class MainBloc extends Bloc<MainEvent, MainState> {
     return tokens;
   }
 
+  // [MDIR:toRPN] Convert infix notation to Reverse Polish Notation
   List<String> toRPN(List<String> tokens) {
     List<String> output = [];
     List<String> operators = [];
@@ -129,6 +138,7 @@ class MainBloc extends Bloc<MainEvent, MainState> {
     return output;
   }
 
+  // [MDIR:evaluateRPN] Evaluate expression in Reverse Polish Notation
   double evaluateRPN(List<String> rpn) {
     List<double> stack = [];
 
@@ -164,6 +174,7 @@ class MainBloc extends Bloc<MainEvent, MainState> {
     return stack.last;
   }
 
+  // [MDIR:isNumeric] Check if a string is numeric
   bool isNumeric(String s) {
     return double.tryParse(s) != null;
   }
