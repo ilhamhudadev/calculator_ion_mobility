@@ -1,0 +1,44 @@
+name: calculator_ion_mobility
+description: A new Flutter project.
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.19.6 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  flutter_bloc: ^8.1.5
+  equatable: ^2.0.5
+  bloc: ^8.1.4
+  expressions: ^0.2.5+1
+  speech_to_text: ^6.6.2
+  bloc_test: ^9.1.7
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+
+flutter:
+
+  uses-material-design: true
+  fonts:
+    - family: iowanoldst
+      fonts:
+        - asset: assets/fonts/iowanoldst-bt/iowan-old-style-black.ttf
+          weight: 400
+    - family: iowanoldstItalic
+      fonts:
+        - asset: assets/fonts/iowanoldst-bt/iowan-old-style-italic.ttf
+          weight: 400
+  assets:
+      - assets/images/
+      - assets/svg/
+      - assets/fonts/
+
